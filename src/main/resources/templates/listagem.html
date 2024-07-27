@@ -2,38 +2,9 @@
 <html lang="pt-br" xmlns:th="http://www.thymeleaf.org">
 <div th:replace="fragments/head::head"> </div>
 <body>
-
-<div th:replace="fragments/header::header"> </div>
-<div  class="container">
-
-    <div th:replace="fragments/message::message(${msg})"></div>
-    <table style="border: 2px solid black;">
-        <tr>
-            <!--    <th>id</th>-->
-            <th>Nome:</th>
-            <th>Preço:</th>
-            <th>Categoria:</th>
-            <th>Quantidade em Estoque:</th>
-            <th>Imagem</th>
-            <th>Editar</th>
-            <th>Deletar</th>
-        </tr>
-        <tr th:each="computador : ${computadores}">
-            <!--        <td th:text="${filme.id}"></td>-->
-            <td th:text="${computador.nome}"></td>
-            <td th:text="${computador.preco}"></td>
-            <td th:text="${computador.categoria}"></td>
-            <td th:text="${computador.qtd}"></td>
-
-            <td><img width="100px" th:src="@{${computador.imageUri}}" alt="imagem"/></td>
-            <td><a th:href="@{'/editar/'+${computador.id}}">Editar</a></td>
-            <td><a th:href="@{'/deletar/'+${computador.id}}">Deletar</a></td>
-        </tr>
-    </table>
-</div>
-<div>
-    <a th:href="@{'/cadastro/'}">Cadastrar Produto</a>
-</div>
-<div th:replace="fragments/footer::footer"> </div>
+    <div th:replace="fragments/header::header"> </div>
+    <div th:replace="fragments/tabelaProdutoAdmin::productTab(${computadores})"></div>
+    <div th:replace="fragments/scripts::scripts"></div>
+    <div th:replace="fragments/footer::footer"> </div>
 </body>
 </html>

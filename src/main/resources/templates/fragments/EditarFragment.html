@@ -1,0 +1,61 @@
+
+<!DOCTYPE html>
+<html lang="pt-br" xmlns:th="http://www.thymeleaf.org">
+
+<body>
+<!-- SECTION -->
+<div class="section" th:fragment="editar(computador)">
+    <!-- container -->
+    <div class="container" style="align-items: center">
+        <!-- row -->
+        <div class="row">
+
+            <div class="col-md-7">
+                <!-- Billing Details -->
+                <div class="billing-details">
+                    <div class="section-title">
+                        <h3 class="title">Editar Computadores</h3>
+                    </div>
+                    <form th:object="${computador}" method="post" th:action="@{/salvar}" enctype="multipart/form-data">
+                        <input type="hidden" name="isEdit" value="true" />
+                        <input type="hidden" th:field="*{id}" />
+
+                        <div class="form-group">
+                            <input  class=input type="text" th:field="*{nome}" placeholder="Nome do PC" />
+                        </div>
+                        <span th:if="${#fields.hasErrors('nome')}" th:errors="*{nome}" style="color: red"></span><br />
+
+                        <div class="form-group">
+                            <input class=input type="text" th:field="*{categoria}" placeholder="Categoria" />
+                        </div>
+                        <span th:if="${#fields.hasErrors('categoria')}" th:errors="*{categoria}" style="color: red"></span><br />
+
+                        <div class="form-group">
+                            <input class=input type="text" th:field="*{preco}" placeholder="Preço" />
+                        </div>
+                        <span th:if="${#fields.hasErrors('preco')}" th:errors="*{preco}" style="color: red"></span><br />
+
+                        <div class="form-group">
+                            <input class=input type="number" th:field="*{qtd}" placeholder="Quantidade" />
+                        </div>
+                        <span th:if="${#fields.hasErrors('qtd')}" th:errors="*{qtd}" style="color: red"></span><br />
+
+                        <div class="form-group">
+                            <input class=input type="file" name="file" required />
+                        </div>
+                        <span th:if="${#fields.hasErrors('imageUri')}" th:errors="*{imageUri}" style="color: red"></span><br />
+                        <button type="submit" href="/salvar" class="primary-btn order-submit">Editar Computador</button>
+
+                    </form>
+                </div>
+                <!-- /Billing Details -->
+            </div>
+            <!-- /row -->
+        </div>
+        <!-- /container -->
+    </div>
+</div>
+<!-- /SECTION -->
+
+</body>
+</html>

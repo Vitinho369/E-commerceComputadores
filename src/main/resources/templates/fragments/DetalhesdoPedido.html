@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="pt-br" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div class="Section" th:fragment="Pedido(carrinho)">
+    <div class="container">
+        <div class="col-md-5 order-details">
+            <div class="section-title text-center">
+                <h3 class="title">Seu Pedido</h3>
+            </div>
+            <div class="order-summary">
+                <div class="order-col">
+                    <div><strong>PRODUTO</strong></div>
+                    <div><strong>TOTAL</strong></div>
+                </div>
+                <div class="order-products" th:each="computador: ${carrinho.getComputadores()}">
+                    <div class="order-col">
+                        <div th:text="${computador.qtd}+'x' + ${computador.nome}"> </div>
+                        <div th:text="'R$' + ${computador.preco}"></div>
+                    </div>
+                </div>
+                <div class="order-col">
+                    <div><strong>TOTAL</strong></div>
+                    <div><strong class="order-total" th:text="${carrinho.totalCompra()}"></strong></div>
+                </div>
+            </div>
+            <a href="/finalizarCompra" class="primary-btn order-submit">Finalizar Pedido</a>
+        </div>
+    </div>
+</div>
+    </div>
+</div>
+
+
+</body>
+</html>

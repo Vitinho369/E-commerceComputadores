@@ -85,4 +85,68 @@ public class LojaController {
         return modelAndView;
     }
 
+    @GetMapping("/verCarrinho")
+    public ModelAndView getCarrinho(Model model, HttpServletRequest request) {
+
+        HttpSession sessao = request.getSession(false);
+        Carrinho carrinho = (Carrinho) sessao.getAttribute("Carrinho");
+        if (carrinho.getComputadores().isEmpty()) {
+            ModelAndView mv = new ModelAndView("index");
+            mv.addObject("msg", "Não existem itens no carrinho");
+            mv.addObject("computadores",service.findNotDeleted());
+            return mv;
+        }
+
+        ModelAndView mv = new ModelAndView("verCarrinho");
+        mv.addObject("carrinho",carrinho);
+        return mv  ;
+    }
+
+    @GetMapping("/removerItemCarrinho/{id}")
+    public ModelAndView removerItemCarrinho(@PathVariable String id, HttpServletRequest request) {
+        HttpSession sessao = request.getSession(false);
+        Carrinho carrinho = (Carrinho) sessao.getAttribute("Carrinho");
+        carrinho.removeComputador(Long.parseLong(id));
+
+        sessao.setAttribute("Carrinho", carrinho);
+        ModelAndView modelAndView = new ModelAndView("index");
+        modelAndView.addObject("carrinho", carrinho);
+        modelAndView.addObject("computadores", service.findNotDeleted());
+
+        return modelAndView;
+    }
+    @GetMapping("/finalizarCompra")
+    public ModelAndView finalizarCompra(HttpServletRequest resquest){
+        ModelAndView modelAndView = new ModelAndView("redirect:/index");
+        modelAndView.addObject("computadores", service.findNotDeleted());
+        HttpSession sessao =  resquest.getSession(false);
+
+        Carrinho carrinho = (Carrinho) sessao.getAttribute("Carrinho");
+        List<Computador> computadorList = carrinho.getComputadores();
+
+        for(Computador c : computadorList){
+            Optional<Computador> compBanco = service.findById(c.getId());
+
+            if(compBanco.isPresent()){
+                int qtd = compBanco.get().getQtd();
+
+                if(qtd - c.getQtd() < 0){
+                    modelAndView.addObject("msg", "Não é possível comprar nesta quantidade");
+                    break;
+                }
+
+                modelAndView.addObject("msg", "Compra realizada com sucesso");
+                if(qtd - c.getQtd() == 0) {
+                    compBanco.get().setQtd(0);
+                    service.update(compBanco.get());
+                    service.delete(c);
+                }else{
+                    compBanco.get().setQtd(qtd - c.getQtd());
+                    service.update(compBanco.get());
+                }
+            }
+        }
+        sessao.invalidate();
+        return modelAndView;
+    }
 }
