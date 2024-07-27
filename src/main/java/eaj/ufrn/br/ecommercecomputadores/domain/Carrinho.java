@@ -10,10 +10,10 @@ public class Carrinho {
     public List<Computador> getComputadores() {
         return computadorList;
     }
-    public void setProdutos(ArrayList<Computador> computador) {
+    public void setComputadores(ArrayList<Computador> computador) {
         this.computadorList = computador;
     }
-    public Computador getProduto (int id){
+    public Computador getComputador (int id){
         Computador mp = null;
         for (Computador p : computadorList){
             if (p.getId() == id){
@@ -22,11 +22,11 @@ public class Carrinho {
         }
         return mp;
     }
-    public void removeProduto (int id){
-        Computador p = getProduto(id);
+    public void removeComputador (int id){
+        Computador p = getComputador(id);
         computadorList.remove(p);
     }
-    public void addProduto (Computador p){
+    public void addComputador (Computador p){
         computadorList.add(p);
     }
 

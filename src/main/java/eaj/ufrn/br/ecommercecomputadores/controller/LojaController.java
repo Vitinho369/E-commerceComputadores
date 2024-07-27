@@ -60,6 +60,7 @@ public class LojaController {
 //        modelAndView.addObject("computadores", service.findNotDeleted());
         if(sessao !=null){
             Carrinho carrinho = (Carrinho) sessao.getAttribute("Carrinho");
+            carrinho.addProduto();
             modelAndView.addObject("carrinho", carrinho);
         }
         return modelAndView;
