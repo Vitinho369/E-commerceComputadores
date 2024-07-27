@@ -41,10 +41,13 @@ public class LojaController {
     }
 
     @GetMapping("/index")
-    public String getIndex(Model model, HttpServletResponse response){
+    public String getIndex(Model model, HttpServletResponse response, HttpServletRequest request){
         model.addAttribute("computadores", service.findNotDeleted());
         LocalDateTime dataMomento = LocalDateTime.now();
-
+        HttpSession session = request.getSession();
+        Carrinho car = new Carrinho();
+        session.setAttribute("Carrinho", car);
+        System.out.println(session.getAttribute("Carrinho"));
         Cookie  cookie = new Cookie("visita", dataMomento.toString());
         cookie.setPath("/");
         cookie.setMaxAge(60 * 60 * 24);
@@ -56,8 +59,8 @@ public class LojaController {
     public ModelAndView adicionarCarrinho(HttpServletRequest resquest, @PathVariable Long id){
         HttpSession sessao = resquest.getSession(false);
 
-        ModelAndView modelAndView = new ModelAndView("redirect:/index");
-//        modelAndView.addObject("computadores", service.findNotDeleted());
+        ModelAndView modelAndView = new ModelAndView("index");
+        modelAndView.addObject("computadores", service.findNotDeleted());
         Carrinho carrinho = (Carrinho) sessao.getAttribute("Carrinho");
 
         Optional<Computador> computadorCar = service.findById(id);

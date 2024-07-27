@@ -44,8 +44,8 @@ public class FileStorageService {
 
     public String save(MultipartFile file) {
         try {
-            Path pathTemporario = Paths.get(upload + file.getOriginalFilename());
-
+            Path pathTemporario = Paths.get(upload +"\\"+ file.getOriginalFilename());
+            System.out.println(pathTemporario);
             file.transferTo(pathTemporario);
 
             String nomeOriginal = file.getOriginalFilename();
