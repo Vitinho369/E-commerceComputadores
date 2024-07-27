@@ -33,7 +33,7 @@ public class Computador {
     //@NotBlank(message = "O produto deve possuir uma imagem")
     String ImageUri;
 
-    @DecimalMin("1")
+    @DecimalMin("0")
     private int qtd;
 
     Date isDeleted;

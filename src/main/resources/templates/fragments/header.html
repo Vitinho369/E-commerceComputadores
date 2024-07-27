@@ -50,18 +50,22 @@
                                         </div>
                                         <div class="product-body">
                                             <h3 class="product-name" th:text="${computador.nome}"><a href="#"></a></h3>
-                                            <h4 class="product-price" th:text="${computador.preco}"><span class="qty">1x</span></h4>
+                                            <h4 class="product-price">
+                                                <span th:text="${computador.qtd} + 'x'"></span>
+                                                <span th:text="'R$' + ${#numbers.formatDecimal(computador.preco, 2, 2)}"></span>
+                                            </h4>
                                         </div>
-                                        <button class="delete"><i class="fa fa-close"></i></button>
+                                        <button class="delete"  th:onclick="'window.location.href=\'/removerItemCarrinho/' + ${computador.id} + '\';'"><i class="fa fa-close"></i></button>
+
                                     </div>
                                 </div>
                                 <div class="cart-summary">
-                                    <small>3 Item(s) selected</small>
-                                    <h5>SUBTOTAL: $2940.00</h5>
+                                    <small th:text="${carrinho.getComputadores().size()} + ' Item(s) selecionados'"> </small>
+                                    <h5 th:text="'SUBTOTAL: R$'  + ${carrinho.totalCompra()}"></h5>
                                 </div>
                                 <div class="cart-btns">
-                                    <a href="#">View Cart</a>
-                                    <a href="#">Checkout  <i class="fa fa-arrow-circle-right"></i></a>
+                                    <a href="/verCarrinho">Ver Carrinho</a>
+                                    <a href="/finalizarCompra">Comprar <i class="fa fa-arrow-circle-right"></i></a>
                                 </div>
                             </div>
                         </div>

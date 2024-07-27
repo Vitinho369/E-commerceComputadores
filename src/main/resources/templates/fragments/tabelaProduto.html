@@ -25,7 +25,7 @@
                                     <div class="product-body">
                                         <p class="product-category" th:text="${computador.categoria}"></p>
                                         <h3 class="product-name"><a href="#" th:text="${computador.nome}"></a></h3>
-                                        <h4 class="product-price" th:text="${computador.preco}"> <del class="product-old-price" th:text="${computador.preco}"></del></h4>
+                                        <h4 class="product-price" th:text="'R$' +${computador.preco}"> <del class="product-old-price" th:text="${computador.preco}"></del></h4>
                                     </div>
                                     <div class="add-to-cart">
                                         <button class="add-to-cart-btn" th:onclick="'window.location.href=\'/adicionarCarrinho/' + ${computador.id} + '\';'"><i class="fa fa-shopping-cart"></i> add to cart</button>

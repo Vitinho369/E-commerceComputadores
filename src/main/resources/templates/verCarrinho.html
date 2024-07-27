@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="pt-br" xmlns:th="http://www.thymeleaf.org">
+<div th:replace="fragments/head::head"> </div>
+<body>
+<div th:replace="fragments/header::header"> </div>
+
+<div class="container">
+    <!-- row -->
+    <div class="row">
+        <!-- Products tab & slick -->
+        <div class="col-md-12">
+            <div class="row" >
+                <div class="products-tabs">
+                    <!-- tab -->
+                    <div id="tab1" class="tab-pane active">
+                        <div class="products-slick" data-nav="#slick-nav-1">
+                            <!-- product -->
+                            <div class="product" th:each="computador: ${carrinho.getComputadores()}">
+                                <div class="product-img">
+                                    <img th:src="${computador.imageUri}" alt="">
+                                    <div class="product-label">
+                                        <!--                                            <span class="sale">-30%</span>-->
+                                    </div>
+                                </div>
+                                <div class="product-body">
+                                    <p class="product-category" th:text="${computador.categoria}"></p>
+                                    <h3 class="product-name"><a href="#" th:text="${computador.nome}"></a></h3>
+                                    <h4 class="product-price" th:text="${computador.preco}"> <del class="product-old-price" th:text="${computador.preco}"></del></h4>
+
+                                </div>
+                                <div class="add-to-cart">
+                                    <button class="add-to-cart-btn" th:onclick="'window.location.href=\'/removerItemCarrinho/' + ${computador.id} + '\';'"><i class="fa fa-shopping-cart"></i> Remover do Carrinho</button>
+                                </div>
+
+
+                            </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- Products tab & slick -->
+            </div>
+            <!-- /row -->
+        </div>
+    <div th:replace="fragments/DetalhesdoPedido::Pedido(${carrinho})">
+
+    <!-- /container -->
+    </div>
+</div>
+<div th:replace="fragments/footer::footer"> </div>
+<div th:replace="fragments/scripts::scripts"> </div>
+</body>
+</html>

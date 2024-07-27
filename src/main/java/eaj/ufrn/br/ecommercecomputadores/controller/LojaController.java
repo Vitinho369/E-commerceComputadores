@@ -27,6 +27,7 @@ import java.nio.file.StandardCopyOption;
 import java.time.DateTimeException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
@@ -41,14 +42,26 @@ public class LojaController {
     }
 
     @GetMapping("/index")
-    public String getIndex(Model model, HttpServletResponse response, HttpServletRequest request){
+    public String getIndex(Model model, HttpServletResponse response, HttpServletRequest request) {
         model.addAttribute("computadores", service.findNotDeleted());
         LocalDateTime dataMomento = LocalDateTime.now();
-        HttpSession session = request.getSession();
-        Carrinho car = new Carrinho();
+        HttpSession session = request.getSession(false);
+
+        if(session==null){
+            System.out.println("criei nova sessão");
+            session = request.getSession();
+        }else{
+            System.out.println("não criei nova sessão");
+        }
+
+        Carrinho car = (Carrinho) session.getAttribute("Carrinho");
+        if(car == null) {
+            System.out.println("carrinho é nulo");
+            car = new Carrinho();
+        }
         session.setAttribute("Carrinho", car);
-        System.out.println(session.getAttribute("Carrinho"));
-        Cookie  cookie = new Cookie("visita", dataMomento.toString());
+
+        Cookie cookie = new Cookie("visita", dataMomento.toString());
         cookie.setPath("/");
         cookie.setMaxAge(60 * 60 * 24);
         response.addCookie(cookie);
@@ -56,7 +69,7 @@ public class LojaController {
     }
 
     @GetMapping("/adicionarCarrinho/{id}")
-    public ModelAndView adicionarCarrinho(HttpServletRequest resquest, @PathVariable Long id){
+    public ModelAndView adicionarCarrinho(HttpServletRequest resquest, @PathVariable Long id) {
         HttpSession sessao = resquest.getSession(false);
 
         ModelAndView modelAndView = new ModelAndView("index");
@@ -65,7 +78,8 @@ public class LojaController {
 
         Optional<Computador> computadorCar = service.findById(id);
 
-        if(computadorCar.isPresent()) carrinho.addComputador(computadorCar.get());
+        if (computadorCar.isPresent()) carrinho.addComputador(computadorCar.get());
+        sessao.setAttribute("Carrinho", carrinho);
         modelAndView.addObject("carrinho", carrinho);
 
         return modelAndView;
