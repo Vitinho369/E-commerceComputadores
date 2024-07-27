@@ -58,14 +58,14 @@ public class LojaController {
 
         ModelAndView modelAndView = new ModelAndView("redirect:/index");
 //        modelAndView.addObject("computadores", service.findNotDeleted());
-        if(sessao !=null){
-            Carrinho carrinho = (Carrinho) sessao.getAttribute("Carrinho");
+        Carrinho carrinho = (Carrinho) sessao.getAttribute("Carrinho");
 
-            Optional<Computador> computadorCar = service.findById(id);
+        Optional<Computador> computadorCar = service.findById(id);
 
-            if(computadorCar.isPresent()) carrinho.addComputador(computadorCar.get());
-            modelAndView.addObject("carrinho", carrinho);
-        }
+        if(computadorCar.isPresent()) carrinho.addComputador(computadorCar.get());
+        modelAndView.addObject("carrinho", carrinho);
+
         return modelAndView;
     }
+
 }
