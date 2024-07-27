@@ -53,14 +53,17 @@ public class LojaController {
     }
 
     @GetMapping("/adicionarCarrinho/{id}")
-    public ModelAndView adicionarCarrinho(HttpServletRequest resquest, @PathVariable String id){
+    public ModelAndView adicionarCarrinho(HttpServletRequest resquest, @PathVariable Long id){
         HttpSession sessao = resquest.getSession(false);
 
         ModelAndView modelAndView = new ModelAndView("redirect:/index");
 //        modelAndView.addObject("computadores", service.findNotDeleted());
         if(sessao !=null){
             Carrinho carrinho = (Carrinho) sessao.getAttribute("Carrinho");
-            carrinho.addProduto();
+
+            Optional<Computador> computadorCar = service.findById(id);
+
+            if(computadorCar.isPresent()) carrinho.addComputador(computadorCar.get());
             modelAndView.addObject("carrinho", carrinho);
         }
         return modelAndView;
