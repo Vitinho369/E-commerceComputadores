@@ -1,9 +1,12 @@
 <!DOCTYPE html>
 <html lang="pt-br" xmlns:th="http://www.thymeleaf.org">
-<div th:replace="fragments/commons::head"> </div>
+<div th:replace="fragments/head::head"> </div>
 
 <body>
-    <div th:replace="fragments/commons::header"> </div>
-    <div th:replace="fragments/commons::footer"> </div>
+    <div th:replace="fragments/header::header"> </div>
+    <div th:replace="fragments/message::message(${msg})"></div>
+    <div th:replace="fragments/tabelaProduto::productTab(${computadores})"> </div>
+    <div th:replace="fragments/footer::footer"> </div>
+    <div th:replace="fragments/scripts::scripts"></div>
 </body>
 </html>

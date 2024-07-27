@@ -10,21 +10,32 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.sql.Date;
+
 @NoArgsConstructor
 @AllArgsConstructor
 @Data
 @Entity(name="computador")
 public class Computador {
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @NotBlank(message = "O nome do produto não pode ser vazio")
-    private String nomeProduto;
+    private String nome;
 
     @DecimalMin("1")
     private float preco;
 
     @NotBlank(message = "A categoria não pode ser vazia")
-    private String strategy;
+    private String categoria;
+
+    //@NotBlank(message = "O produto deve possuir uma imagem")
+    String ImageUri;
+
+    @DecimalMin("1")
+    private int qtd;
+
+    Date isDeleted;
+
 }

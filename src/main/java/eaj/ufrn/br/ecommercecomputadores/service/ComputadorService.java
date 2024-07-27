@@ -4,6 +4,9 @@ import eaj.ufrn.br.ecommercecomputadores.domain.Computador;
 import eaj.ufrn.br.ecommercecomputadores.repository.ComputadorRepository;
 import org.springframework.stereotype.Service;
 
+import java.sql.Date;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
@@ -26,7 +29,17 @@ public class ComputadorService {
         return repository.save(p);
 
     }
+
+    public void delete(Computador c){
+        c.setIsDeleted(Date.valueOf(LocalDate.now()));
+        repository.saveAndFlush(c);
+    }
+
     public List<Computador> findAll(){
         return repository.findAll();
+    }
+
+    public List<Computador> findNotDeleted(){
+        return repository.findNotDeleted();
     }
 }

@@ -16,7 +16,7 @@ import lombok.NoArgsConstructor;
 @Entity(name="usuario")
 public class Usuario {
     @Id
-    @GeneratedValue(strategy=GenerationType.SEQUENCE)
+    @GeneratedValue(strategy=GenerationType.IDENTITY)
     private Long id;
 
     @NotBlank(message = "O nome de usuário não pode ser vazio")
