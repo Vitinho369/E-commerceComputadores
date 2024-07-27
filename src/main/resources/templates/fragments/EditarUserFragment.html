@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="pt-br" xmlns:th="http://www.thymeleaf.org">
+
+<body>
+<body>
+<!-- SECTION -->
+<div class="section" th:fragment="ceditarUser(usuario)">
+    <!-- container -->
+    <div class="container" style="align-items: center">
+        <!-- row -->
+        <div class="row">
+
+            <div class="col-md-7">
+                <!-- Billing Details -->
+                <div class="billing-details">
+                    <div class="section-title">
+                        <h3 class="title">Cadastro de Usuario</h3>
+                    </div>
+                    <form th:object="${usuario}" method="post" th:action="@{/CadUsuario}" >
+                        <input type="hidden" name="isEdit" value="true" />
+                        <input type="hidden" th:field="*{id}" />
+
+                        <div class="form-group">
+                            <input  class=input type="text" th:field="*{username}" placeholder="Nome do Usuario" />
+                        </div>
+                        <span th:if="${#fields.hasErrors('username')}" th:errors="*{username}" style="color: red"></span><br />
+
+                        <div class="form-group">
+                            <input class=input type="password" th:field="*{password}" placeholder="Senha" />
+                        </div>
+                        <span th:if="${#fields.hasErrors('password')}" th:errors="*{password}" style="color: red"></span><br />
+
+                        <button type="submit" href="/CadUsuario" class="primary-btn order-submit">Cadastrar Usuario</button>
+
+                    </form>
+                </div>
+                <!-- /Billing Details -->
+            </div>
+            <!-- /row -->
+        </div>
+        <!-- /container -->
+    </div>
+
+</div>
+
+</body>
+</html>

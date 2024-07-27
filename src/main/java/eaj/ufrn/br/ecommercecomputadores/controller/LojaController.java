@@ -149,4 +149,5 @@ public class LojaController {
         sessao.invalidate();
         return modelAndView;
     }
+
 }

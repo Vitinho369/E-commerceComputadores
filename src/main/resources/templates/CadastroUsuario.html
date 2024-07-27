@@ -1,0 +1,10 @@
+<!DOCTYPE html>
+<html lang="pt-br" xmlns:th="http://www.thymeleaf.org">
+<div th:replace="fragments/head::head"> </div>
+<body>
+<div th:replace="fragments/header::header"> </div>
+<div th:replace="fragments/CadastroUserFragment::cadastroUser(${usuario})"></div>
+<div th:replace="fragments/footer::footer"> </div>
+<div th:replace="fragments/scripts::scripts"></div>
+</body>
+</html>
