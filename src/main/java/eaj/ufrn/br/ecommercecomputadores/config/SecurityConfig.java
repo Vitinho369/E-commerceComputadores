@@ -21,8 +21,8 @@ public class SecurityConfig {
                         auth ->{
 //                            auth.requestMatchers("/js/**", "/css/**", "/images/**", "/fonts/**", "/img/**", "/").permitAll();
 //                            auth.requestMatchers("/index").permitAll();
-//                            auth.requestMatchers("/cadastroUsuario").permitAll();
-//                            auth.requestMatchers("/login").permitAll();
+//                            auth.requestMatchers("/cadastroUsuario", "/CadUsuario").permitAll();
+                            auth.requestMatchers("/login").permitAll();
 //                            auth.requestMatchers("/admin", "/cadastro", "/deletar", "/editar","/salvar").hasRole("ADMIN");
 //                            auth.requestMatchers("/adicionarCarrinho","/finalizarCompra", "/removerItemCarrinho/", "/verCarrinho").hasRole("USER");
                             auth.anyRequest().permitAll();

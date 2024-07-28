@@ -44,21 +44,22 @@ public class LojaController {
     @GetMapping("/index")
     public String getIndex(Model model, HttpServletResponse response, HttpServletRequest request) {
         model.addAttribute("computadores", service.findNotDeleted());
+        model.addAttribute("carrinho");
         LocalDateTime dataMomento = LocalDateTime.now();
         HttpSession session = request.getSession(false);
-
-        if(session==null){
-            System.out.println("criei nova sessão");
-            session = request.getSession();
-        }else{
-            System.out.println("não criei nova sessão");
-        }
+//
+//        if(session==null){
+//            System.out.println("criei nova sessão");
+//            session = request.getSession();
+//        }else{
+//            System.out.println("não criei nova sessão");
+//        }
 
         Carrinho car = (Carrinho) session.getAttribute("Carrinho");
-        if(car == null) {
-            System.out.println("carrinho é nulo");
-            car = new Carrinho();
-        }
+//        if(car == null) {
+//            System.out.println("carrinho é nulo");
+//            car = new Carrinho();
+//        }
         session.setAttribute("Carrinho", car);
 
         Cookie cookie = new Cookie("visita", dataMomento.toString());

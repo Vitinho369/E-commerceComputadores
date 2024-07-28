@@ -31,14 +31,13 @@
                         <span th:if="${#fields.hasErrors('password')}" th:errors="*{password}" style="color: red"></span><br />
                         <div class="form-group">
                             <div class="input-checkbox">
-                                <input type="checkbox" id="create-account">
+                                <input type="checkbox" id="create-account" name="isAdmin">
                                 <label for="create-account">
                                     <span></span>
                                     Você é Admin ?
                                 </label>
-
-                        <button type="submit" href="/CadUsuario" class="primary-btn order-submit">Cadastrar Pessoa</button>
                             </div>
+                            <button type="submit" href="/CadUsuario" class="primary-btn order-submit">Cadastrar Pessoa</button>
                         </div>
                     </form>
                 </div>

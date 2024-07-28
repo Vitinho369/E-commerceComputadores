@@ -35,6 +35,14 @@ public class Usuario implements UserDetails {
     @NotNull(message = "O usuário deve ser um admin ou um usuário comum")
     private boolean isAdmin;
 
+//    public boolean getIsAdmin() {
+//        return isAdmin;
+//    }
+//
+//    public void setAdmin(boolean isAdmin){
+//        this.isAdmin = isAdmin;
+//    }
+
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         if (this.isAdmin){
