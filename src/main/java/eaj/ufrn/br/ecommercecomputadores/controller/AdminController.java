@@ -51,7 +51,7 @@ public class AdminController {
 
                 c.setImageUri("/images/" + fileStorageService.update(file, computador.get()));//Atualiza a imagem do computador sabendo o nome origina dela
                 service.update(c);
-                ModelAndView mv = new ModelAndView("/listagem");
+                ModelAndView mv = new ModelAndView("listagem");
                 mv.addObject("msg", "Atualização realizada com sucesso");
                 mv.addObject("computadores", service.findNotDeleted());
                 return mv;
@@ -65,7 +65,7 @@ public class AdminController {
         c.setImageUri("/images/"+fileStorageService.save(file)); //Para evitar imagens com mesmo nome, o fileStorageService altera o nome da imagem e retorna o nome alterado
         service.create(c);
 
-        ModelAndView modelAndView = new ModelAndView("index");
+        ModelAndView modelAndView = new ModelAndView("redirect:/admin");
         modelAndView.addObject("msg", "Cadastro realizado com sucesso");
         modelAndView.addObject("computadores", service.findNotDeleted());
         return modelAndView;
@@ -94,12 +94,12 @@ public class AdminController {
         if (computador.isPresent()){
 
             service.delete(computador.get());
-            ModelAndView mv = new ModelAndView("index");
+            ModelAndView mv = new ModelAndView("redirect:/admin");
             mv.addObject("computadores", service.findNotDeleted());
             mv.addObject("msg", "Remoção realizada com sucesso");
             return mv;
         }else{
-            return new ModelAndView("redirect:/index");
+            return new ModelAndView("redirect:/admin");
         }
     }
 

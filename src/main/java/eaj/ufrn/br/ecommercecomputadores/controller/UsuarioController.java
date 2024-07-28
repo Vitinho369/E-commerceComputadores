@@ -1,5 +1,6 @@
 package eaj.ufrn.br.ecommercecomputadores.controller;
 
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.ui.Model;
 import eaj.ufrn.br.ecommercecomputadores.domain.Computador;
 import eaj.ufrn.br.ecommercecomputadores.domain.Usuario;
@@ -36,34 +37,18 @@ public class UsuarioController {
     }
 
     @PostMapping("/CadUsuario")
-    public ModelAndView setCadastro(@ModelAttribute @Valid Usuario u, Errors errors, @RequestParam("isEdit") boolean isEdit , @RequestParam("isAdmin") boolean isAdmin) throws IOException {
-
-        if(isEdit) { //Verifica se veio da pagina de edição ou de cadastro
-
-            Optional<Usuario> usuario = service.findById(u.getId());
-            if (usuario.isPresent()) {
-
-                if(errors.hasErrors()){
-                    ModelAndView modelAndView = new ModelAndView("/editar");
-                    return modelAndView;
-                }
-
-
-                service.update(u);
-                ModelAndView mv = new ModelAndView("redirect:/index");
-                mv.addObject("msg", "Atualização realizada com sucesso");
-                return mv;
-            }
-        }
+    public ModelAndView setCadastro(@ModelAttribute @Valid Usuario u, Errors errors, @RequestParam("isEdit") boolean isEdit ) throws IOException {
 
         if(errors.hasErrors()){
             return new ModelAndView("redirect:/cadastroUsuario");
         }
-        u.setAdmin(isAdmin);
+
+        u.setPassword(new BCryptPasswordEncoder().encode(u.getPassword()));
+
+//        u.setAdmin(isAdmin);
         service.create(u);
-//        System.out.println("O usuário é admin? " + u.getIsAdmin());
-        System.out.println("Cadastrou");
-        ModelAndView modelAndView = new ModelAndView("redirect:/index");
+
+        ModelAndView modelAndView = new ModelAndView("redirect:/login");
         modelAndView.addObject("msg", "Cadastro realizado com sucesso");
         return modelAndView;
 

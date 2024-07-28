@@ -41,26 +41,11 @@ public class LojaController {
         this.service = service;
     }
 
-    @GetMapping("/index")
-    public String getIndex(Model model, HttpServletResponse response, HttpServletRequest request) {
+    @GetMapping({"/index", "/"})
+    public String getIndex(Model model, HttpServletResponse response) {
         model.addAttribute("computadores", service.findNotDeleted());
         model.addAttribute("carrinho");
         LocalDateTime dataMomento = LocalDateTime.now();
-        HttpSession session = request.getSession(false);
-//
-//        if(session==null){
-//            System.out.println("criei nova sessão");
-//            session = request.getSession();
-//        }else{
-//            System.out.println("não criei nova sessão");
-//        }
-
-        Carrinho car = (Carrinho) session.getAttribute("Carrinho");
-//        if(car == null) {
-//            System.out.println("carrinho é nulo");
-//            car = new Carrinho();
-//        }
-        session.setAttribute("Carrinho", car);
 
         Cookie cookie = new Cookie("visita", dataMomento.toString());
         cookie.setPath("/");
@@ -72,6 +57,12 @@ public class LojaController {
     @GetMapping("/adicionarCarrinho/{id}")
     public ModelAndView adicionarCarrinho(HttpServletRequest resquest, @PathVariable Long id) {
         HttpSession sessao = resquest.getSession(false);
+
+        Carrinho car = (Carrinho) sessao.getAttribute("Carrinho");
+        if(car == null) {
+            car = new Carrinho();
+            sessao.setAttribute("Carrinho", car);
+        }
 
         ModelAndView modelAndView = new ModelAndView("index");
         modelAndView.addObject("computadores", service.findNotDeleted());
@@ -137,8 +128,9 @@ public class LojaController {
                 }
 
                 modelAndView.addObject("msg", "Compra realizada com sucesso");
+
+                compBanco.get().setQtd(qtd - c.getQtd());
                 if(qtd - c.getQtd() == 0) {
-                    compBanco.get().setQtd(0);
                     service.update(compBanco.get());
                     service.delete(c);
                 }else{

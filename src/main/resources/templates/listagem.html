@@ -3,6 +3,7 @@
 <div th:replace="fragments/head::head"> </div>
 <body>
     <div th:replace="fragments/header::header"> </div>
+    <a th:href="@{/cadastro}" class="primary-btn order-submit">Cadastro de Produto</a>
     <div th:replace="fragments/tabelaProdutoAdmin::productTab(${computadores})"></div>
     <div th:replace="fragments/scripts::scripts"></div>
     <div th:replace="fragments/footer::footer"> </div>

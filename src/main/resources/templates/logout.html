@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html lang="pt-br" xmlns:th="http://www.thymeleaf.org">
+<div th:replace="fragments/head::head"> </div>
+<body>
+<div th:replace="fragments/header::header"> </div>
+<form name="logoutForm" th:action="@{/logout}" method="post">
+    <input hidden type="submit" value="Sign Out"/>
+    <button type="submit" class="primary-btn order-submit">Logout</button>
+</form>
+<div th:replace="fragments/footer::footer"> </div>
+<div th:replace="fragments/scripts::scripts"></div>
+</body>
+
+</html>

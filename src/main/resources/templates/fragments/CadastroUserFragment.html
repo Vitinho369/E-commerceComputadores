@@ -1,7 +1,5 @@
 <!DOCTYPE html>
 <html lang="pt-br" xmlns:th="http://www.thymeleaf.org">
-
-
 <body>
 <!-- SECTION -->
 <div class="section" th:fragment="cadastroUser(usuario)">
@@ -21,24 +19,26 @@
                         <input type="hidden" th:field="*{id}" />
 
                         <div class="form-group">
-                            <input  class=input type="text" th:field="*{username}" placeholder="Nome do Usuario" />
+                            <input class="input" type="text" th:field="*{username}" placeholder="Nome do Usuario" />
                         </div>
                         <span th:if="${#fields.hasErrors('username')}" th:errors="*{username}" style="color: red"></span><br />
 
                         <div class="form-group">
-                            <input class=input type="password" th:field="*{password}" placeholder="Senha" />
+                            <input class="input" type="password" th:field="*{password}" placeholder="Senha" />
                         </div>
                         <span th:if="${#fields.hasErrors('password')}" th:errors="*{password}" style="color: red"></span><br />
+
                         <div class="form-group">
                             <div class="input-checkbox">
                                 <input type="checkbox" id="create-account" name="isAdmin">
                                 <label for="create-account">
                                     <span></span>
-                                    Você é Admin ?
+                                    Você é Admin?
                                 </label>
                             </div>
-                            <button type="submit" href="/CadUsuario" class="primary-btn order-submit">Cadastrar Pessoa</button>
                         </div>
+
+                        <button type="submit" class="primary-btn order-submit">Cadastrar Pessoa</button>
                     </form>
                 </div>
                 <!-- /Billing Details -->
@@ -46,12 +46,8 @@
             <!-- /row -->
         </div>
         <!-- /container -->
-        </div>
-
     </div>
-
-
-
+</div>
 <!-- /SECTION -->
-    </body>
+</body>
 </html>
